@@ -1,78 +1,59 @@
-import {Button, FlatList, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Button, FlatList, StyleSheet, View} from 'react-native';
 import {useState} from 'react';
+import GoalItem from './components/GoalItem';
+import GoalInput from './components/GoalInput';
 
-export default function App() {
+function App() {
     const [inputValue, setInputValue] = useState('');
+    const [showGoalInput, setShowGoalInput] = useState(false);
     const [listGoals, setListGoals] = useState([]);
 
+    const onShowGoalInput = (value) => setShowGoalInput(value)
     const onChangeInputValue = (value) => setInputValue(value)
     const addGoalHandler = () => {
-        setListGoals(prevState => [...prevState, {title: inputValue}])
+        setListGoals(prevState => [...prevState, {title: inputValue, id: Math.random().toString()}])
         setInputValue('')
+    }
+    const removeGoalHandler = (id) => {
+        setListGoals(prevState => prevState.filter(obj => obj.id !== id))
     }
 
     return (
         <View style={styles.container}>
-            <View style={styles.inputContainer}>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={onChangeInputValue}
-                    placeholder={'Write your goal!'}
-                    value={inputValue}
+            <View style={styles.button}>
+                <Button title={'I want to add Goal!'}
+                        onPress={() => setShowGoalInput(true)}
                 />
-                <Button title={'Add goal!'} onPress={addGoalHandler}/>
             </View>
-            {/*<ScrollView style={styles.goalList}>*/}
-            {/*    {listGoals.map((goal) => {*/}
-            {/*        return <View key={goal} style={styles.goalContainer}>*/}
-            {/*            <Text style={styles.goal}>{goal}</Text>*/}
-            {/*        </View>*/}
-            {/*    })}*/}
-            {/*</ScrollView>*/}
+            <GoalInput onChangeInputValue={onChangeInputValue}
+                       addGoalHandler={addGoalHandler}
+                       value={inputValue}
+                       visible={showGoalInput}
+                       onShowGoalInput={onShowGoalInput}
+            />
             <FlatList
                 style={styles.goalList}
                 data={listGoals}
-                renderItem={({item}) => <View style={styles.goalContainer}>
-                    <Text style={styles.goal}>{item.title}</Text>
-                </View>}
+                alwaysBounceVertical={false}
+                renderItem={({item}) => <GoalItem title={item.title} id={item.id}
+                                                  removeGoalHandler={removeGoalHandler}/>}
                 keyExtractor={item => item.id}
             />
         </View>
-    )
-        ;
+    );
 }
 
 const styles = StyleSheet.create({
+    button: {
+        marginTop: 50,
+    },
     container: {
         marginHorizontal: 16,
-    },
-    inputContainer: {
-        marginTop: 50,
-        paddingBottom: 20,
-        borderBottomWidth: 1,
-        borderBottomColor: '#ccc',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    input: {
-        padding: 8,
-        width: '70%',
-        borderColor: '#ccc',
-        borderWidth: 1,
-        borderStyle: 'solid'
+        marginBottom: 120
     },
     goalList: {
         marginVertical: 8,
     },
-    goalContainer: {
-        marginVertical: 4,
-        backgroundColor: '#a844f1',
-        borderRadius: 6
-    },
-    goal: {
-        padding: 8,
-        fontSize: 18,
-        color: '#fff',
-    }
 });
+
+export default App;
