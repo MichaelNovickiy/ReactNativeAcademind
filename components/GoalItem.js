@@ -12,8 +12,9 @@ const GoalItem = ({title, id, removeGoalHandler}) => {
             <Pressable
                 onPress={() => onRemoveItem(id)}
                 android_ripple={{color: 'rgb(210, 230, 255)'}}
-                style={({pressed}) => [{backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'rgba(183,53,197,0.07)'}]}>
-                <Text style={styles.goal}>{title}</Text>
+                style={({pressed}) => [{backgroundColor: pressed ? '#eebbc3' : '#b8c1ec'}, { borderRadius: 3}]}
+            >
+                <Text style={styles.goalText}>{title}</Text>
             </Pressable>
         </View>
     );
@@ -22,13 +23,12 @@ const GoalItem = ({title, id, removeGoalHandler}) => {
 const styles = StyleSheet.create({
     goalContainer: {
         marginVertical: 4,
-        backgroundColor: '#a844f1',
-        borderRadius: 6
+
     },
-    goal: {
+    goalText: {
         padding: 8,
         fontSize: 18,
-        color: '#ffffff',
+        color: '#121629',
     }
 })
 
