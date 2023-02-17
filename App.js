@@ -11,14 +11,15 @@ import AppLoading from 'expo-app-loading/build/AppLoadingNativeWrapper';
 export default function App() {
     const [userNumber, setUserNumber] = useState();
     const [gameIsOver, setGameIsOver] = useState(true);
+    const [guessRounds, setGuessRounds] = useState(0)
 
     const [fontsLoaded] = useFonts({
         'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
         'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
     })
-    
-    if(!fontsLoaded) {
-        return <AppLoading />
+
+    if (!fontsLoaded) {
+        return <AppLoading/>
     }
 
     function pickedNumberHandler(pickedNumber) {
@@ -26,9 +27,16 @@ export default function App() {
         setGameIsOver(false);
     }
 
-    function gameOverHandler() {
+    function gameOverHandler(numberOfRounds) {
         setGameIsOver(true)
+        setGuessRounds(numberOfRounds)
     }
+
+    function startNewGameHandler() {
+        setUserNumber(null)
+        setGuessRounds(0)
+    }
+
 
     let screen = <StartGameScreen onPickNumber={pickedNumberHandler}/>
 
@@ -39,12 +47,14 @@ export default function App() {
     }
 
     if (gameIsOver && userNumber) {
-        screen = <GameOverScreen/>
+        screen = <GameOverScreen roundsNumber={guessRounds}
+                                 userNumber={userNumber}
+                                 onStartNewGame={startNewGameHandler}/>
     }
 
 
     return (
-        <LinearGradient colors={[Colors.primary700, Colors.accent500]} style={styles.rootScreen}>
+        <LinearGradient colors={[Colors.background, '#fffffe']} style={styles.rootScreen}>
             <ImageBackground
                 source={require('./assets/images/background.png')}
                 resizeMode="cover"
