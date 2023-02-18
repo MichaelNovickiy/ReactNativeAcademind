@@ -54,7 +54,7 @@ export default function App() {
 
 
     return (
-        <LinearGradient colors={[Colors.background, '#fffffe']} style={styles.rootScreen}>
+        <LinearGradient colors={[Colors.background500, Colors.background700]} style={styles.rootScreen}>
             <ImageBackground
                 source={require('./assets/images/background.png')}
                 resizeMode="cover"

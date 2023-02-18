@@ -13,7 +13,7 @@ const GuessLogItem = ({roundNumber, guess}) => {
 
 const styles = StyleSheet.create({
     listItem: {
-        borderColor: Colors.button,
+        borderColor: Colors.accent500,
         borderWidth: 1,
         borderRadius: 40,
         padding: 12,

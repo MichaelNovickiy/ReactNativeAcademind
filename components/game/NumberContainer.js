@@ -15,7 +15,7 @@ export default NumberContainer;
 const styles = StyleSheet.create({
     container: {
         borderWidth: 4,
-        borderColor: Colors.accent500,
+        borderColor: Colors.primary500,
         padding: 24,
         margin: 24,
         borderRadius: 8,
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     },
     numberText: {
         fontFamily: 'open-sans-bold',
-        color: Colors.accent500,
+        color: Colors.primary500,
         fontSize: 36,
         fontWeight: 'bold',
     },

@@ -1,8 +1,9 @@
 const Colors = {
-    background: '#f8f5f2',
-    button: '#078080',
-    buttonText: '#232323',
-    accent500: '#f45d48',
+    background500: '#c6e3dc',
+    background700: '#94d2c3',
+    primary500: '#078080',
+    accent500: '#f9bc60',
+    text: '#232323',
 };
 
 export default Colors;
