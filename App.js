@@ -1,12 +1,13 @@
-import {StyleSheet, ImageBackground, SafeAreaView} from 'react-native';
+import {StyleSheet, ImageBackground, SafeAreaView, StatusBar} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
-import StartGameScreen from './screens/StartGameScreen';
-import GameScreen from './screens/GameScreen';
 import {useState} from 'react';
-import Colors from './constants/colors';
-import GameOverScreen from './screens/GameOverScreen';
 import {useFonts} from 'expo-font';
 import AppLoading from 'expo-app-loading/build/AppLoadingNativeWrapper';
+
+import StartGameScreen from './screens/StartGameScreen';
+import GameScreen from './screens/GameScreen';
+import GameOverScreen from './screens/GameOverScreen';
+import Colors from './constants/colors';
 
 export default function App() {
     const [userNumber, setUserNumber] = useState();
@@ -53,7 +54,8 @@ export default function App() {
     }
 
 
-    return (
+    return (<>
+        <StatusBar style="dark"/>
         <LinearGradient colors={[Colors.background500, Colors.background700]} style={styles.rootScreen}>
             <ImageBackground
                 source={require('./assets/images/background.png')}
@@ -64,14 +66,13 @@ export default function App() {
                 <SafeAreaView style={styles.rootScreen}>{screen}</SafeAreaView>
             </ImageBackground>
         </LinearGradient>
-    );
+    </>);
 }
 
 const styles = StyleSheet.create({
     rootScreen: {
         flex: 1,
-    },
-    backgroundImage: {
+    }, backgroundImage: {
         opacity: 0.15
     }
 });
